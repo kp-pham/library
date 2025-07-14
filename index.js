@@ -55,6 +55,13 @@ function createChildContent(key, value) {
     return childContent;
 }
 
+const openDialog = document.getElementById("open-dialog");
+const bookDialog = document.getElementById("book-dialog");
+
+openDialog.addEventListener("click", () => {
+    bookDialog.showModal();
+});
+
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
 addBookToLibrary("The Metamorphosis", "Franz Kafka", 75, true);
 addBookToLibrary("The Catcher in the Rye", "J. D. Salinger", 234, true);
