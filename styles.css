@@ -38,3 +38,16 @@ body {
     font-weight: bold;
     text-decoration: underline;
 }
+
+dialog {
+    width: 40%;
+}
+
+form {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+}
+
+section input {
+    width: 100%;
+}
