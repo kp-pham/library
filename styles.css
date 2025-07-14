@@ -4,6 +4,20 @@ body {
     background-color: #E1E8F0;
 }
 
+.header {
+    display: grid;
+    justify-content: center;
+    background-color: #000000;
+    padding: 10px 5px;
+}
+
+.header button {
+    background-color: #E1E8F0;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px;
+}
+
 .library {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
