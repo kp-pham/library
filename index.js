@@ -19,32 +19,40 @@ function displayBooksFromLibrary() {
     const libraryGrid = document.querySelector(".library");
     
     library.forEach(book => {
-        const gridItem = document.createElement("div");
-        gridItem.classList.add("book");
-
-        const title = document.createElement("p");
-        title.classList.add("title");
-        title.textContent = book.title;
-
-        const author = document.createElement("p");
-        author.classList.add("author");
-        author.textContent = `By: ${book.author}`;
-
-        const pages = document.createElement("p");
-        pages.classList.add("pages");
-        pages.textContent = `Number of pages: ${book.pages}`;
-
-        const read = document.createElement("p");
-        read.classList.add("read");
-        read.textContent = book.read ? "Not read yet" : "Finished reading";
-
-        gridItem.appendChild(title);
-        gridItem.appendChild(author);
-        gridItem.appendChild(pages);
-        gridItem.appendChild(read);
-
-        libraryGrid.append(gridItem);
+        libraryGrid.append(createGridItem(book));
     });
+}
+
+function createGridItem(book) {
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("book");
+
+    for (let key in book)
+        if (key != "id")
+            gridItem.appendChild(createChildContent(key, book[key]));
+
+    return gridItem;
+}
+
+function createChildContent(key, value) {
+    const childContent = document.createElement("p");
+    childContent.classList.add(key);
+    
+    switch (key) {
+        case "author":
+            childContent.textContent = `By: ${value}`;
+            break;
+        case "pages":
+            childContent.textContent = `Number of pages: ${value}`;
+            break;
+        case "read":
+            childContent.textContent = value ? "Not read yet" : "Finished reading";
+            break;
+        default:
+            childContent.textContent = value;
+    }
+
+    return childContent;
 }
 
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
