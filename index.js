@@ -23,29 +23,38 @@ function displayBooksFromLibrary() {
     });
 }
 
+const BOOK_ID = "id";
+
 function createGridItem(book) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("book");
 
-    for (let key in book)
-        if (key != "id")
+    for (let key in book) {
+        if (key == BOOK_ID)
+            gridItem.id = book.id;
+        else
             gridItem.appendChild(createChildContent(key, book[key]));
+    }
 
     return gridItem;
 }
+
+const AUTHOR_NAME = "author";
+const PAGE_COUNT = "pages";
+const READ_STATUS = "read";
 
 function createChildContent(key, value) {
     const childContent = document.createElement("p");
     childContent.classList.add(key);
     
     switch (key) {
-        case "author":
+        case AUTHOR_NAME:
             childContent.textContent = `By: ${value}`;
             break;
-        case "pages":
+        case PAGE_COUNT:
             childContent.textContent = `Number of pages: ${value}`;
             break;
-        case "read":
+        case READ_STATUS:
             childContent.textContent = value ? "Finished reading" : "Not read yet";
             break;
         default:
