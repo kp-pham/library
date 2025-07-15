@@ -1,1 +1,5 @@
 # library
+
+The library project involves the creation of a digital library to display and keep track of the books the user has finished reading and has not started reading. The user enters the title of the book, the name of the author, the number of pages in the book, and whether the user has already read the book to add another book to the collection. The user can also remove books from their collection and change the read the status of the book once the book is added to their collection.
+
+The project provides practice with objects and object constructors building upon the practice exercise of building an object constructor to create objects representing books. The project also provides practice with DOM manipulation and events with idalogs and modals with dialogs and modals to display the form for the user to provide the information about the book to be added to their collection.
