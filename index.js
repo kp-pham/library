@@ -28,8 +28,8 @@ const BOOK_ID = "id";
 function createGridItem(book) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("book");
-    gridItem.appendChild(createDeleteButton());
-
+    
+    createButtons(gridItem);
     appendChildren(gridItem, book);
     return gridItem;
 }
@@ -43,14 +43,30 @@ function appendChildren(gridItem, book) {
     }
 }
 
+const DELETE_ICON = "images/close-circle.png";
+const DELETE_ALT_TEXT = "Circle with X mark.";
+
+function createButtons(gridItem) {
+    const actions = document.createElement("div");
+    actions.classList.add("actions");
+
+    actions.appendChild(createButton(DELETE_ICON, DELETE_ALT_TEXT));
+    gridItem.appendChild(actions);
+}
+
+function createButton(image, description) {
+    const icon = document.createElement("img");
+    icon.src = image;
+    icon.alt = description;
+
+    return icon;
+}
+
 function assignId(gridItem, book) {
     gridItem.id = book.id;
 }
 
 function createDeleteButton() {
-    const actions = document.createElement("div");
-    actions.classList.add("actions");
-
     const icon = document.createElement("img");
     icon.src = "images/close-circle.png";
     icon.alt = "Circle with X mark.";
