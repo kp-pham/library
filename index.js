@@ -51,23 +51,26 @@ function filterKeys(book) {
 }
 
 const DELETE_ICON = "images/close-circle.png";
+const DELETE_ID = "delete-book";
 const DELETE_ALT_TEXT = "Circle with X mark.";
 
 const MARK_READ_ICON = "images/book-open-blank-variant-outline.png";
+const MARK_READ_ID = "mark-read";
 const MARK_READ_ALT_TEXT = "Outline of open book.";
 
 function createButtons(gridItem) {
     const actions = document.createElement("div");
     actions.classList.add("actions");
 
-    actions.appendChild(createButton(MARK_READ_ICON, MARK_READ_ALT_TEXT));
-    actions.appendChild(createButton(DELETE_ICON, DELETE_ALT_TEXT));
+    actions.appendChild(createButton(MARK_READ_ICON, MARK_READ_ID, MARK_READ_ALT_TEXT));
+    actions.appendChild(createButton(DELETE_ICON, DELETE_ID, DELETE_ALT_TEXT));
     gridItem.appendChild(actions);
 }
 
-function createButton(image, description) {
+function createButton(image, id, description) {
     const icon = document.createElement("img");
     icon.src = image;
+    icon.id = id;
     icon.alt = description;
 
     return icon;
@@ -155,11 +158,33 @@ function clearForm() {
 
 const libraryGrid = document.querySelector(".library");
 
-libraryGrid.addEventListener('click', event => {
-    const id = getId(event.target);
+libraryGrid.addEventListener('click', event => {    
+    if (clickedRemoveBook(event.target)) {
+        removeBook(event.target);
+    }
+    else if (clickedMarkAsRead(event.target)) {
+        markAsRead(event.target);
+    }
+});
+
+function clickedRemoveBook(target) {
+    return target.id === DELETE_ID;
+} 
+
+function removeBook(target) {
+    const id = getId(target);
     document.getElementById(id).remove();
     removeBookFromLibrary(id);
-});
+}
+
+function clickedMarkAsRead(target) {
+    return target.id === MARK_READ_ID;
+}
+
+function markAsRead(target) {
+    const id = getId(target);
+    updateReadStatus(id);
+}
 
 function getId(target){
     return target.parentElement.parentElement.id;
@@ -168,7 +193,7 @@ function getId(target){
 function removeBookFromLibrary(id) {
     for (let i = 0; i < library.length; ++i) {
         if (matchesId(library[i], id)) {
-            removeBook(i);
+            library.splice(index, 1);
             break;
         }
     }
@@ -178,18 +203,9 @@ function matchesId(book, id) {
     return book.id === id;
 }
 
-function removeBook(index) {
-    library.splice(index, 1);
-}
-
-libraryGrid.addEventListener("click", event => {
-    const id = getId(event.target);
-    
-});
-
 function updateReadStatus(id) {
-    const readStatus = document.getElementById(id).lastElementChild;
-    readStatus = readStatus.textContent === FINISHED_READING ? NOT_STARTED_READING : FINISHED_READING;
+    let readStatus = document.getElementById(id).lastElementChild;
+    readStatus.textContent = readStatus.textContent === FINISHED_READING ? NOT_STARTED_READING : FINISHED_READING;
     
     const book = findBook(id);
     book.updateReadStatus();
