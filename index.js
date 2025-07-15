@@ -28,6 +28,7 @@ const BOOK_ID = "id";
 function createGridItem(book) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("book");
+    gridItem.appendChild(createDeleteButton());
 
     for (let key in book) {
         if (key == BOOK_ID)
@@ -37,6 +38,18 @@ function createGridItem(book) {
     }
 
     return gridItem;
+}
+
+function createDeleteButton() {
+    const actions = document.createElement("div");
+    actions.classList.add("actions");
+
+    const icon = document.createElement("img");
+    icon.src = "images/close-circle.png";
+    icon.alt = "Circle with X mark.";
+
+    actions.appendChild(icon);
+    return actions;
 }
 
 const AUTHOR_NAME = "author";
