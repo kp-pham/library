@@ -30,14 +30,21 @@ function createGridItem(book) {
     gridItem.classList.add("book");
     gridItem.appendChild(createDeleteButton());
 
+    appendChildren(gridItem, book);
+    return gridItem;
+}
+
+function appendChildren(gridItem, book) {
     for (let key in book) {
         if (key == BOOK_ID)
-            gridItem.id = book.id;
+            assignId(gridItem, book);
         else
             gridItem.appendChild(createChildContent(key, book[key]));
     }
+}
 
-    return gridItem;
+function assignId(gridItem, book) {
+    gridItem.id = book.id;
 }
 
 function createDeleteButton() {
