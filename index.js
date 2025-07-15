@@ -72,6 +72,7 @@ submitDialog.addEventListener("click", event => {
     event.preventDefault();
     addBookToLibrary(getTitle(), getAuthor(), getPages(), getRead());
     addBookToDisplay();
+    clearForm();
 });
 
 function getTitle() {
@@ -95,6 +96,11 @@ function addBookToDisplay() {
     const book = library.at(-1);
 
     libraryGrid.append(createGridItem(book));
+}
+
+function clearForm() {
+    document.querySelector("form").reset();
+    bookDialog.close();
 }
 
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
