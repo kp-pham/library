@@ -46,7 +46,7 @@ function createChildContent(key, value) {
             childContent.textContent = `Number of pages: ${value}`;
             break;
         case "read":
-            childContent.textContent = value ? "Not read yet" : "Finished reading";
+            childContent.textContent = value ? "Finished reading" : "Not read yet";
             break;
         default:
             childContent.textContent = value;
@@ -58,6 +58,7 @@ function createChildContent(key, value) {
 const openDialog = document.getElementById("open-dialog");
 const bookDialog = document.getElementById("book-dialog");
 const closeDialog = document.getElementById("close-dialog");
+const submitDialog = document.getElementById("submit-dialog");
 
 openDialog.addEventListener("click", () => {
     bookDialog.showModal();
@@ -66,6 +67,35 @@ openDialog.addEventListener("click", () => {
 closeDialog.addEventListener("click", () => {
     bookDialog.close();
 });
+
+submitDialog.addEventListener("click", event => {
+    event.preventDefault();
+    addBookToLibrary(getTitle(), getAuthor(), getPages(), getRead());
+    addBookToDisplay();
+});
+
+function getTitle() {
+    return document.getElementById("title").value;
+}
+
+function getAuthor() {
+    return document.getElementById("author").value;
+}
+
+function getPages() {
+    return document.getElementById("pages").value;
+}
+
+function getRead() {
+    return document.querySelector("input[name='read']:checked").value === "true";
+}
+
+function addBookToDisplay() {
+    const libraryGrid = document.querySelector(".library");
+    const book = library.at(-1);
+
+    libraryGrid.append(createGridItem(book));
+}
 
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
 addBookToLibrary("The Metamorphosis", "Franz Kafka", 75, true);
