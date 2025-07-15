@@ -57,9 +57,14 @@ function createChildContent(key, value) {
 
 const openDialog = document.getElementById("open-dialog");
 const bookDialog = document.getElementById("book-dialog");
+const closeDialog = document.getElementById("close-dialog");
 
 openDialog.addEventListener("click", () => {
     bookDialog.showModal();
+});
+
+closeDialog.addEventListener("click", () => {
+    bookDialog.close();
 });
 
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
