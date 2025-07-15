@@ -40,14 +40,37 @@ body {
 }
 
 dialog {
+    background-color: #E1E8F0;
     width: 40%;
 }
 
-form {
+.fields {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
 }
 
-section input {
-    width: 100%;
+section {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    background-color: #FFFFFF;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.buttons button:first-child {
+    margin-right: 20px;
+}
+
+.buttons button {
+    background-color: #FFFFFF;
+    padding: 10px 20px;
+    border: 1px solid #000000;
+    border-radius: 10px;
 }
