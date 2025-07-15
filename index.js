@@ -125,6 +125,35 @@ function clearForm() {
     bookDialog.close();
 }
 
+const libraryGrid = document.querySelector(".library");
+
+libraryGrid.addEventListener('click', event => {
+    const id = getId(event.target);
+    document.getElementById(id).remove();
+    removeBookFromLibrary(id);
+});
+
+function getId(target){
+    return target.parentElement.parentElement.id;
+}
+
+function removeBookFromLibrary(id) {
+    for (let i = 0; i < library.length; ++i) {
+        if (matchesId(library[i], id)) {
+            removeBook(i);
+            break;
+        }
+    }
+}
+
+function matchesId(book, id) {
+    return book.id === id;
+}
+
+function removeBook(index) {
+    library.splice(index, 1);
+}
+
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
 addBookToLibrary("The Metamorphosis", "Franz Kafka", 75, true);
 addBookToLibrary("The Catcher in the Rye", "J. D. Salinger", 234, true);
