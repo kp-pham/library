@@ -23,24 +23,31 @@ function displayBooksFromLibrary() {
     });
 }
 
+Book.prototype.updateReadStatus = function() {
+    this.read = !this.read;
+}
+
 const BOOK_ID = "id";
 
 function createGridItem(book) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("book");
-    
+    assignId(gridItem, book);
+
     createButtons(gridItem);
     appendChildren(gridItem, book);
     return gridItem;
 }
 
 function appendChildren(gridItem, book) {
-    for (let key in book) {
-        if (key == BOOK_ID)
-            assignId(gridItem, book);
-        else
-            gridItem.appendChild(createChildContent(key, book[key]));
-    }
+    const keys = filterKeys(book);
+
+    for (let key of keys)
+        gridItem.appendChild(createChildContent(key, book[key]));
+}
+
+function filterKeys(book) {
+    return Object.keys(book).filter(key => key !== BOOK_ID && typeof key !== "function");
 }
 
 const DELETE_ICON = "images/close-circle.png";
@@ -70,18 +77,12 @@ function assignId(gridItem, book) {
     gridItem.id = book.id;
 }
 
-function createDeleteButton() {
-    const icon = document.createElement("img");
-    icon.src = "images/close-circle.png";
-    icon.alt = "Circle with X mark.";
-
-    actions.appendChild(icon);
-    return actions;
-}
-
 const AUTHOR_NAME = "author";
 const PAGE_COUNT = "pages";
 const READ_STATUS = "read";
+
+const FINISHED_READING = "Finished reading";
+const NOT_STARTED_READING = "Not read yet";
 
 function createChildContent(key, value) {
     const childContent = document.createElement("p");
@@ -95,7 +96,7 @@ function createChildContent(key, value) {
             childContent.textContent = `Number of pages: ${value}`;
             break;
         case READ_STATUS:
-            childContent.textContent = value ? "Finished reading" : "Not read yet";
+            childContent.textContent = value ? FINISHED_READING : NOT_STARTED_READING;
             break;
         default:
             childContent.textContent = value;
@@ -179,6 +180,25 @@ function matchesId(book, id) {
 
 function removeBook(index) {
     library.splice(index, 1);
+}
+
+libraryGrid.addEventListener("click", event => {
+    const id = getId(event.target);
+    
+});
+
+function updateReadStatus(id) {
+    const readStatus = document.getElementById(id).lastElementChild;
+    readStatus = readStatus.textContent === FINISHED_READING ? NOT_STARTED_READING : FINISHED_READING;
+    
+    const book = findBook(id);
+    book.updateReadStatus();
+}
+
+function findBook(id) {
+    for (let i = 0; i < library.length; ++i)
+        if (matchesId(library[i], id))
+            return library[i];
 }
 
 addBookToLibrary("The Book Thief", "Markus Zusak", 584, true);
