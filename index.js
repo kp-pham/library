@@ -46,10 +46,14 @@ function appendChildren(gridItem, book) {
 const DELETE_ICON = "images/close-circle.png";
 const DELETE_ALT_TEXT = "Circle with X mark.";
 
+const MARK_READ_ICON = "images/book-open-blank-variant-outline.png";
+const MARK_READ_ALT_TEXT = "Outline of open book.";
+
 function createButtons(gridItem) {
     const actions = document.createElement("div");
     actions.classList.add("actions");
 
+    actions.appendChild(createButton(MARK_READ_ICON, MARK_READ_ALT_TEXT));
     actions.appendChild(createButton(DELETE_ICON, DELETE_ALT_TEXT));
     gridItem.appendChild(actions);
 }

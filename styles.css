@@ -36,10 +36,11 @@ body {
 .actions {
     display: flex;
     justify-content: right;
+    gap: 10px;
 }
 
 .book img {
-    width: 10%;
+    width: max(20px, 8%);
 }
 
 .title {
